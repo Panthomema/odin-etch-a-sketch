@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="styles/new-style.css">
+  <script src="scripts/script.js" crossorigin="anonymous" defer></script>
+  <title>teleSketch</title>
+</head>
+<body>
+  <div id="frame">
+    <div class="aux-area"></div>
+    <main>
+      <div class="main-area">
+        <div id="controls-left">
+          <div id="general-controls" class="buttons-container">
+            <label>
+              <input type="checkbox" name="grid-toggler">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                  grid_on
+              </span>
+            </label>
+            <label>
+              <button class="button-cover">
+                <span class="material-symbols-outlined icon">
+                  delete
+                </span>
+              </button>
+            </label>
+          </div>
+          <div id="slider-container">
+            <span class="material-symbols-outlined icon">
+                zoom_in
+            </span>
+            <input type="range" min="1" max="100" step="1">
+            <span class="material-symbols-outlined icon">
+                zoom_out
+            </span>
+          </div>
+          <div class="logo">
+            <h1>teleSketch</h1>
+            <p>MAGIC - WINDOW</p>
+          </div>
+        </div>
+      </div>
+      <div id="canvas"></div>
+      <div class="main-area">
+        <div id="controls-right">
+          <div id="color-controls" class="buttons-container">
+            <label>
+              <input type="color" name="marker-color" id="marker-color-input" value="#333333">
+              <span class="material-symbols-outlined icon">
+                  palette
+              </span>
+            </label>
+          
+            <label>
+                <input type="color" name="bg-color" id="bg-color-input" value="#cccccc">
+                <span class="material-symbols-outlined icon">
+                    image
+                </span>
+            </label>
+          </div>
+          <div id="marker-controls" class="buttons-container">
+
+              <label>
+                <input type="radio" name="marker-options" id="marker" checked>
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  brush
+                </span>
+              </label>
+
+              <label>
+                <input type="radio" name="marker-options" id="color-picker">
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  colorize
+                </span>
+              </label>
+
+              <label>
+                <input type="radio" name="marker-options" id="lightener">
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  light_mode
+                </span>
+              </label>
+            
+              <label>
+                <input type="radio" name="marker-options" id="eraser">
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  ink_eraser
+                </span>
+              </label>
+
+              <label>
+                <input type="radio" name="marker-options" id="randomizer">
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  looks
+                </span>
+              </label>
+            
+              <label>
+                <input type="radio" name="marker-options" id="darkener">
+                <span class="button-cover"></span>
+                <span class="material-symbols-outlined icon">
+                  dark_mode
+                </span>
+              </label>
+            </div>
+        </div>
+      </div>
+    </main>
+    <div class="aux-area"></div>
+  </div>
+</body>
+</html>

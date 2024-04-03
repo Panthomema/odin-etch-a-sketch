@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="styles/style.css">
+  <title>Etch-a-sketch</title>
+</head>
+
+<body>
+  <div id="frame">
+    <div class="aux-area">
+    </div>
+    <main>
+      <div class="controls-area left">
+        <div id="general-controls" class="buttons-container">
+          <label>
+            <input type="checkbox" name="grid-toggler">
+            <span class="button-cover"></span>
+            <span class="material-symbols-outlined">
+                grid_on
+            </span>
+          </label>
+          <label>
+            <button class="button-cover">
+              <span class="material-symbols-outlined">
+                delete
+              </span>
+            </button>
+          </label>
+        </div>
+        <div id="slider-container">
+          <input type="range" min="1" max="100" value="50">
+        </div>
+        <div class="logo">
+          <h1>teleSketch</h1>
+          <p>MAGIC - WINDOW</p>
+        </div>
+      </div>
+      <div id="canvas"></div>
+      <div class="controls-area right">
+        <div id="color-controls" class="buttons-container">
+          <input type="color" name="" id="">
+          <button></button>
+          <input type="color" name="" id="">
+        </div>
+        <div id="marker-controls" class="buttons-container">
+          <div class="row">
+            <label>
+              <input type="radio" name="marker-options">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined">
+                ink_eraser
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="marker-options">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined">
+                looks
+              </span>
+            </label>
+          </div>
+          <div class="row">
+            <label>
+              <input type="radio" name="marker-options">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined">
+                light_mode
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="marker-options">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined">
+                dark_mode
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div class="aux-area"></div>
+  </div>
+</body>
+
+</html>

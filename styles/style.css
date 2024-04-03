@@ -1,0 +1,453 @@
+/* GENERAL */
+
+/* Font importation */
+
+@font-face {
+  font-family: 'Kamryn';
+  src: url('/assets/fonts/Kamryn\ 3D\ Italic\ D.otf') format('opentype');
+}
+
+/* Material Icons */
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+/* CSS normalization */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  body {
+    height: 100vh;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Variables + responsive fonts*/ 
+
+:root {
+  --bg-frame: linear-gradient(rgb(207, 0, 0), rgb(156, 0, 0));
+  --color-gradient-text: linear-gradient(
+    rgb(204, 204, 204), rgb(170, 170, 170), rgb(136, 136, 136)
+  );
+  --color-text: rgb(186, 186, 186);
+  --fs-h1: 4vw;
+  --fs-p: 1.75vw;
+  --ff-title: sans-serif;
+  
+  --bg-canvas: rgb(192, 192, 192);
+  --border-canvas: 0.5vmin solid rgb(120, 0, 0);
+  --box-shadow-canvas:
+      inset 0 0.3vmin 0.3vmin rgba(0, 0, 0, 0.35),
+      inset 0 0.6vmin 0.6vmin rgba(0, 0, 0, 0.5),
+      inset 0 1.2vmin 2.4vmin rgba(0, 0, 0, 0.35);
+      
+  --border-button: 0.15vmin solid rgb(120, 0, 0);
+  --bg-button: linear-gradient(
+    rgb(204, 204, 204), rgb(170, 170, 170), rgb(136, 136, 136)
+  );
+  --box-shadow-button:
+      inset 0 0.45vmin 0.15vmin rgba(0, 0, 0, 0.35),
+      0 0.3vmin 0.3vmin rgba(0, 0, 0, 0.5),
+      0 0.9vmin 0.9vmin rgba(0, 0, 0, 0.35);
+  --box-shadow-button-active:
+      inset 0 0.3vmin 0.3vmin rgba(0, 0, 0, 0.35),
+      inset 0 0.75vmin 0.75vmin rgba(0, 0, 0, 0.5),
+      inset 0 2.25vmin 4.5vmin rgba(0, 0, 0, 0.35);
+  --text-shadow-button-active:
+      0 0 0.75vmin #ffffcc,
+      0 0 1.2vmin #fffccc;
+  --text-color-button-active: rgb(255, 255, 255);
+  
+  --color-button-icon: rgb(34, 34, 34);
+  --fs-icon: 3vmin;
+
+  --border-slider-thumb: 0.45vmin solid rgb(102, 102, 102);
+  --box-shadow-slider-thumb: 
+      0.3vmin 0.3vmin 0.3vmin rgb(0, 0, 0), 0 0 0.3vmin rgb(13, 13, 13);
+  
+  --box-shadow-slider-track:
+      inset 0.3vmin 0.3vmin 0.3vmin rgb(34, 34, 34), 
+      inset 0 0 0.3vmin rgb(13, 13, 13);
+  --bg-slider-track: rgb(170, 170, 170);
+  --border-slider-track: 0.4vmin solid rgb(100, 0, 0);
+
+}
+
+/* LAYOUT */
+
+/* Frame */
+
+#frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (orientation: portrait) {
+  #frame {
+    flex-direction: row;
+  }
+}
+
+/* Aux-area */
+
+.aux-area {
+  flex: 0 0 12.5vmin;
+  width: 100%;
+}
+
+@media (orientation: portrait) {
+  .aux-area {
+    flex: 0 0 12.5vmin;
+    height: 100%
+  }
+}
+
+/* Main */
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.main-area {
+  flex: 1;
+  height: 100%;
+}
+
+@media (orientation: portrait) {
+  main {
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .main-area {
+    width: 100%;
+  }
+}
+
+/* Controls */
+
+#controls-left,
+#controls-right {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1% 5%;
+  gap: 2%;
+}
+
+#controls-left {
+  align-items: flex-start;
+}
+
+#controls-right {
+  align-items: flex-end;
+}
+
+#general-controls {
+  justify-content: flex-start;
+}
+
+#color-controls {
+  justify-content: flex-end;
+}
+
+#marker-controls {
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  max-width: 40vmin;
+  
+}
+
+/* Slider */
+
+#slider-container {
+  max-width: 75%;
+  width: 40vmin;
+  margin-top: auto;
+  display: flex;
+  gap: 3%;
+}
+
+/* Buttons */
+.buttons-container {
+  display: flex;
+  gap: 3vmin;
+}
+
+.buttons-container label,
+.buttons-container button {
+  position: relative;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+label .icon {
+  position: absolute;
+}
+
+/* Canvas */
+
+#canvas {
+  height: 75vmin;
+  width: 75vmin;
+  aspect-ratio: 1/1;
+}
+
+/* AESTHETICS */
+
+/* Frame */
+
+#frame {
+  background: var(--bg-frame);
+}
+
+/* Canvas */
+
+#canvas {
+  background: var(--bg-canvas);
+  border-radius: 2%;
+  box-shadow: var(--box-shadow-canvas);
+  border: var(--border-canvas);
+}
+
+/* Buttons */
+
+.icon {
+  position: relative;
+  z-index: 10;
+  font-size: var(--fs-icon);
+  color: var(--color-button-icon);
+  user-select: none;
+}
+
+.buttons-container label input {
+  appearance: none;
+}
+
+.button-cover {
+  border: var(--border-button);
+  background: var(--bg-button);
+  border-radius: 6%;
+  box-shadow: var(--box-shadow-button);
+  cursor: pointer;
+}
+
+input[type="color" i]:focus,
+.button-cover:active,
+.buttons-container label input:checked ~ .button-cover {
+  box-shadow: var(--box-shadow-button-active);
+}
+
+.button-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0.75vmin 0.6vmin;
+  border-top: 0.15vmin solid #eee;
+  filter: blur(0.3vmin);
+}
+
+.button-cover:active > .icon,
+.buttons-container label input:checked ~ .icon {
+  color: var(--text-color-button-active);
+  text-shadow: var(--text-shadow-button-active);
+  transition: all 0.2s ease;
+}
+
+#general-controls label {
+  width: 10vmin;
+}
+
+/* Marker inputs */
+
+#marker-controls label {
+  width: 8vmin;
+}
+
+/* Color inputs */
+
+#color-controls label {
+  width: 10vmin;
+}
+
+#marker-color-input + .icon {
+  color: var(--color-text);
+}
+
+input[type="color" i] {
+  position: relative;
+  border-radius: 6%;
+  inline-size: 10vmin;
+  block-size: 10vmin;
+  background: var(--bg-button);
+  border: var(--border-button);
+  box-shadow: var(--box-shadow-button);
+  padding: 0.9vmin;
+  cursor: pointer;
+}
+
+input[type="color" i]::-webkit-color-swatch-wrapper {
+  padding: 0.15vmin;
+}
+
+input[type="color" i]::-webkit-color-swatch {
+  border-radius: 6%;
+}
+
+input[type="color" i]::-moz-color-swatch {
+  border-radius: 6%;
+}
+
+/* Slider */
+
+input[type="range"] {
+  appearance: none;
+  -webkit-appearance: none; 
+  width: 100%; 
+  background: transparent; 
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -2.1vmin;
+  appearance: none;
+  -webkit-appearance: none; 
+  border: var(--border-slider-thumb);
+  height: 5vmin;
+  width: 5vmin;
+  border-radius: 50%;
+  background: var(--bg-button);
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-thumb); 
+}
+
+input[type=range]::-moz-range-thumb {
+  appearance: none;
+  border: var(--border-slider-thumb);
+  height: 5vmin;
+  width: 5vmin;
+  border-radius: 50%;
+  background: var(--bg-button);
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-thumb); 
+}
+
+input[type=range]::-ms-thumb {
+  appearance: none;
+  border: var(--border-slider-thumb);
+  height: 5vmin;
+  width: 5vmin;
+  border-radius: 50%;
+  background: var(--bg-button);
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-thumb); 
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1.6vmin;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-track);
+  background: var(--bg-slider-track);
+  border-radius: 50px;
+  border: var(--border-slider-track);
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 1.6vmin;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-track);
+  background: var(--bg-slider-track);
+  border-radius: 50px;
+  border: var(--border-slider-track);
+}
+
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent; 
+  border-color: transparent;
+  color: transparent;
+  height: 1.6vmin;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-slider-track);
+  background: var(--bg-slider-track);
+  border-radius: 50px;
+  border: var(--border-slider-track);
+}
+
+
+/* Logo & frame icons*/
+
+#slider-container .icon,
+.logo h1,
+.logo p {
+  background: var(--color-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo h1 {
+  font-size: var(--fs-h1);
+  font-family: Kamryn, sans-serif;
+}
+
+.logo p {
+  padding-left: 0.5em;
+  font-size: var(--fs-p);
+  font-style: italic;
+  font-weight: 400;
+  font-family: sans-serif;
+}
+
