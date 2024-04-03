@@ -16,15 +16,15 @@
       <div class="main-area">
         <div id="controls-left">
           <div id="general-controls" class="buttons-container">
-            <label>
-              <input type="checkbox" name="grid-toggler">
+            <label for="grid-toggler">
+              <input type="checkbox" name="grid-toggler" id="grid-toggler">
               <span class="button-cover"></span>
               <span class="material-symbols-outlined icon">
                   grid_on
               </span>
-            </label>
-            <label>
-              <button class="button-cover">
+            </label for="clear">
+            <label for="clear">
+              <button class="button-cover" id="clear">
                 <span class="material-symbols-outlined icon">
                   delete
                 </span>
@@ -35,7 +35,7 @@
             <span class="material-symbols-outlined icon">
                 zoom_in
             </span>
-            <input type="range" min="1" max="100" step="1">
+            <input type="range" min="1" max="100" step="1" id="zoom">
             <span class="material-symbols-outlined icon">
                 zoom_out
             </span>
@@ -50,64 +50,62 @@
       <div class="main-area">
         <div id="controls-right">
           <div id="color-controls" class="buttons-container">
-            <label>
-              <input type="color" name="marker-color" id="marker-color-input" value="#333333">
+            <label for="marker-color-input">
+              <input type="color" name="marker-color-input" id="marker-color-input" value="#333333">
               <span class="material-symbols-outlined icon">
                   palette
               </span>
             </label>
-          
-            <label>
-                <input type="color" name="bg-color" id="bg-color-input" value="#cccccc">
+            <label for="bg-color-input">
+                <input type="color" name="bg-color-input" id="bg-color-input" value="#cccccc">
                 <span class="material-symbols-outlined icon">
                     image
                 </span>
             </label>
           </div>
           <div id="marker-controls" class="buttons-container">
-
-              <label>
-                <input type="radio" name="marker-options" id="marker" checked>
+              <label for="marker">
+                <input type="checkbox" name="marker-options" id="marker" checked>
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   brush
                 </span>
               </label>
 
-              <label>
-                <input type="radio" name="marker-options" id="color-picker">
+              <label for="color-picker">
+                <input type="checkbox" name="marker-options" id="color-picker">
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   colorize
                 </span>
               </label>
 
-              <label>
-                <input type="radio" name="marker-options" id="lightener">
+              <label for="lightener">
+                <input type="checkbox" name="marker-options" id="lightener">
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   light_mode
                 </span>
               </label>
             
-              <label>
-                <input type="radio" name="marker-options" id="eraser">
+              <label for="eraser">
+                <input type="checkbox" name="marker-options" id="eraser">
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   ink_eraser
                 </span>
               </label>
 
-              <label>
-                <input type="radio" name="marker-options" id="randomizer">
+              <label for="randomizer">
+                <input type="checkbox" name="marker-options" id="randomizer">
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   looks
                 </span>
               </label>
             
-              <label>
-                <input type="radio" name="marker-options" id="darkener">
+              <label for="darkener">
+                <input type="checkbox" name="marker-options" id="darkener">
                 <span class="button-cover"></span>
                 <span class="material-symbols-outlined icon">
                   dark_mode

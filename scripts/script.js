@@ -1,31 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const markerColorInput = document.querySelector('#marker-color-input');
-  const bgColorInput = document.querySelector('#bg-color-input');
 
-  // Function to add the class
-  function addActiveClass(event) {
-    event.currentTarget.classList.add('input-color-active');
-  }
-
-  // Function to remove the class
-  function removeActiveClass(event) {
-    if (!event.currentTarget.contains(event.target)) {
-      event.currentTarget.classList.remove('input-color-active');
-    }
-  }
-
-  // Add event listeners for focus
-  markerColorInput.addEventListener('focus', addActiveClass);
-  bgColorInput.addEventListener('focus', addActiveClass);
-
-  // Add a click event listener to the document
-  document.addEventListener('click', function (event) {
-    // Check if the click is outside both color pickers
-    if (!markerColorInput.contains(event.target) && !bgColorInput.contains(event.target)) {
-      // Remove the class from both inputs
-      markerColorInput.classList.remove('input-color-active');
-      bgColorInput.classList.remove('input-color-active');
-    }
+  document.querySelectorAll('[type=color]').forEach(input => {
+    input.addEventListener('input', event => {
+      updateIconColor(event.currentTarget);
+    });
   });
+  
+  const markerControls = document.querySelectorAll('#marker-controls input');
 
+  markerControls.forEach(input => {
+    input.addEventListener('click', event => {
+      [...markerControls]
+        .filter(input => input !== event.currentTarget)
+        .forEach(other => {
+          other.checked = false;
+        }) 
+    }); 
+  });
+  
 });
+
+function calculateLuminance(color) {
+  const { r, g, b } = color;
+  // Calculate luminance
+  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace(/^#/, '');
+  // Convert hex color to RGB
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  return { r, g, b };
+}
+
+function updateIconColor(colorInput) {
+  const icon = colorInput.nextElementSibling;
+
+  // Get brightness/luminance
+  const luminance = calculateLuminance(hexToRgb(colorInput.value));
+
+  // Set color of the icon based on luminance threshold
+  icon.style.color = (luminance > 0.5) 
+    ? 'var(--color-button-icon)' 
+    : 'var(--color-text)';
+}
+

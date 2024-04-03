@@ -317,7 +317,7 @@ label .icon {
   color: var(--color-text);
 }
 
-input[type="color" i] {
+input[type=color i] {
   position: relative;
   border-radius: 6%;
   inline-size: 10vmin;
@@ -329,15 +329,15 @@ input[type="color" i] {
   cursor: pointer;
 }
 
-input[type="color" i]::-webkit-color-swatch-wrapper {
+input[type=color i]::-webkit-color-swatch-wrapper {
   padding: 0.15vmin;
 }
 
-input[type="color" i]::-webkit-color-swatch {
+input[type=color i]::-webkit-color-swatch {
   border-radius: 6%;
 }
 
-input[type="color" i]::-moz-color-swatch {
+input[type=color i]::-moz-color-swatch {
   border-radius: 6%;
 }
 
