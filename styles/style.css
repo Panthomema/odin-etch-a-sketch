@@ -99,6 +99,13 @@ button {
 
 }
 
+@media (orientation: portrait) {
+  :root {
+    --fs-h1: 6vw;
+    --fs-p: 2.75vw;
+  }
+}
+
 /* LAYOUT */
 
 /* Frame */
@@ -171,6 +178,15 @@ main {
   gap: 2%;
 }
 
+#slider-logo-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  height: 50%;
+  gap: 5%;
+  width: 100%
+}
+
 #controls-left {
   align-items: flex-start;
 }
@@ -179,30 +195,77 @@ main {
   align-items: flex-end;
 }
 
+#general-controls,
+#color-controls,
+#marker-controls,
+#slider-logo-container {
+  flex: 1;
+  width: 100%;
+}
+
 #general-controls {
+  align-items: flex-start;
   justify-content: flex-start;
 }
 
 #color-controls {
+  align-items: flex-start;
   justify-content: flex-end;
 }
 
 #marker-controls {
+  max-width: 37.5vmin;
   flex-direction: row;
   justify-content: flex-end;
+  align-content: flex-end;
   flex-wrap: wrap;
-  max-width: 40vmin;
-  
 }
-
-/* Slider */
 
 #slider-container {
   max-width: 75%;
-  width: 40vmin;
-  margin-top: auto;
+  width: 37.5vmin;
   display: flex;
   gap: 3%;
+}
+
+@media (orientation:portrait) {
+  #controls-right,
+  #controls-left {
+    padding: 5% 1%;
+    flex-direction: row-reverse;
+  }
+
+  #general-controls,
+  #color-controls,
+  #marker-controls,
+  #slider-logo-container {
+    width: auto;
+    height: 100%;
+  }
+
+
+  #general-controls {
+    justify-content: flex-end;
+  }
+
+  #slider-logo-container {
+    height: 100%;
+    width: auto;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+
+  #marker-controls {
+    justify-content: flex-start;
+  }
+
+  #color-controls {
+    align-items: flex-end;
+  }
+
+  #slider-container {
+    max-width: 100%;
+  }
 }
 
 /* Buttons */
