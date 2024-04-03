@@ -277,7 +277,6 @@ label .icon {
   cursor: pointer;
 }
 
-input[type="color" i]:focus,
 .button-cover:active,
 .buttons-container label input:checked ~ .button-cover {
   box-shadow: var(--box-shadow-button-active);
