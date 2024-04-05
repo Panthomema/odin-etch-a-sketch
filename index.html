@@ -13,108 +13,104 @@
   <div id="frame">
     <div class="aux-area"></div>
     <main>
-      <div class="main-area">
-        <div id="controls-left">
-          <div id="general-controls" class="buttons-container">
-            <label for="grid-toggler">
-              <input type="checkbox" name="grid-toggler" id="grid-toggler">
-              <span class="button-cover"></span>
+      <div id="controls-side-a"> 
+        <div id="general-controls" class="buttons-container rectangled-ui">
+          <label>
+            <input type="checkbox" name="grid-toggler" class="grid-toggler">
+            <span class="button-cover"></span>
+            <span class="material-symbols-outlined icon">
+                grid_on
+            </span>
+          </label for="clear">
+          <label>
+            <button class="button-cover" class="clear">
               <span class="material-symbols-outlined icon">
-                  grid_on
+                delete
               </span>
-            </label for="clear">
-            <label for="clear">
-              <button class="button-cover" id="clear">
-                <span class="material-symbols-outlined icon">
-                  delete
-                </span>
-              </button>
-            </label>
-          </div>
-          <div id="slider-logo-container">
-            <div id="slider-container">
-              <span class="material-symbols-outlined icon">
-                  zoom_in
-              </span>
-              <input type="range" min="1" max="100" step="1" id="zoom">
-              <span class="material-symbols-outlined icon">
-                  zoom_out
-              </span>
-            </div>
-            <div class="logo">
-              <h1>teleSketch</h1>
-              <p>MAGIC - WINDOW</p>
-            </div>
-          </div>   
+            </button>
+          </label>
         </div>
+        <div id="slider-logo-container" class="rectangled-ui">
+          <div class="slider-container">
+            <span class="material-symbols-outlined icon">
+                zoom_in
+            </span>
+            <input type="range" min="1" max="100" step="1" class="zoom">
+            <span class="material-symbols-outlined icon">
+                zoom_out
+            </span>
+          </div>
+          <div class="logo">
+            <h1>teleSketch</h1>
+            <p>MAGIC - WINDOW</p>
+          </div>
+        </div>   
+        
       </div>
       <div id="canvas"></div>
-      <div class="main-area">
-        <div id="controls-right">
-          <div id="color-controls" class="buttons-container">
-            <label for="marker-color-input">
-              <input type="color" name="marker-color-input" id="marker-color-input" value="#333333">
+      <div id="controls-side-b">
+        <div id="color-controls" class="buttons-container rectangled-ui">
+          <label>
+            <input type="color" name="marker-color-input" class="marker-color-input" value="#333333">
+            <span class="material-symbols-outlined icon">
+                palette
+            </span>
+          </label>
+          <label>
+              <input type="color" name="bg-color-input" class="bg-color-input" value="#cccccc">
               <span class="material-symbols-outlined icon">
-                  palette
+                  image
+              </span>
+          </label>
+        </div>
+        <div id="marker-controls" class="buttons-container rectangled-ui">
+            <label>
+              <input type="checkbox" name="marker-options" class="marker" checked>
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                brush
               </span>
             </label>
-            <label for="bg-color-input">
-                <input type="color" name="bg-color-input" id="bg-color-input" value="#cccccc">
-                <span class="material-symbols-outlined icon">
-                    image
-                </span>
+
+            <label>
+              <input type="checkbox" name="marker-options" class="color-picker">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                colorize
+              </span>
             </label>
-          </div>
-          <div id="marker-controls" class="buttons-container">
-              <label for="marker">
-                <input type="checkbox" name="marker-options" id="marker" checked>
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  brush
-                </span>
-              </label>
 
-              <label for="color-picker">
-                <input type="checkbox" name="marker-options" id="color-picker">
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  colorize
-                </span>
-              </label>
+            <label>
+              <input type="checkbox" name="marker-options" class="lightener">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                light_mode
+              </span>
+            </label>
+          
+            <label>
+              <input type="checkbox" name="marker-options" class="eraser">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                ink_eraser
+              </span>
+            </label>
 
-              <label for="lightener">
-                <input type="checkbox" name="marker-options" id="lightener">
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  light_mode
-                </span>
-              </label>
-            
-              <label for="eraser">
-                <input type="checkbox" name="marker-options" id="eraser">
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  ink_eraser
-                </span>
-              </label>
-
-              <label for="randomizer">
-                <input type="checkbox" name="marker-options" id="randomizer">
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  looks
-                </span>
-              </label>
-            
-              <label for="darkener">
-                <input type="checkbox" name="marker-options" id="darkener">
-                <span class="button-cover"></span>
-                <span class="material-symbols-outlined icon">
-                  dark_mode
-                </span>
-              </label>
-            </div>
-        </div>
+            <label>
+              <input type="checkbox" name="marker-options" class="randomizer">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                looks
+              </span>
+            </label>
+          
+            <label for="darkener">
+              <input type="checkbox" name="marker-options" id="darkener">
+              <span class="button-cover"></span>
+              <span class="material-symbols-outlined icon">
+                dark_mode
+              </span>
+            </label>
       </div>
     </main>
     <div class="aux-area"></div>

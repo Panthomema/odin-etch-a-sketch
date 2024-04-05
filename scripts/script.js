@@ -22,13 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function calculateLuminance(color) {
   const { r, g, b } = color;
-  // Calculate luminance
   return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 }
 
 function hexToRgb(hex) {
   hex = hex.replace(/^#/, '');
-  // Convert hex color to RGB
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
@@ -38,11 +36,8 @@ function hexToRgb(hex) {
 
 function updateIconColor(colorInput) {
   const icon = colorInput.nextElementSibling;
-
-  // Get brightness/luminance
   const luminance = calculateLuminance(hexToRgb(colorInput.value));
 
-  // Set color of the icon based on luminance threshold
   icon.style.color = (luminance > 0.5) 
     ? 'var(--color-button-icon)' 
     : 'var(--color-text)';

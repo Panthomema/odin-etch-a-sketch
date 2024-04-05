@@ -99,7 +99,7 @@ button {
 
 }
 
-@media (orientation: portrait) {
+@media (max-aspect-ratio: 8/10) {
   :root {
     --fs-h1: 6vw;
     --fs-p: 2.75vw;
@@ -116,10 +116,9 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
-@media (orientation: portrait) {
+@media (max-aspect-ratio: 8/10){
   #frame {
     flex-direction: row;
   }
@@ -128,84 +127,72 @@ button {
 /* Aux-area */
 
 .aux-area {
-  flex: 0 0 12.5vmin;
-  width: 100%;
-}
-
-@media (orientation: portrait) {
-  .aux-area {
-    flex: 0 0 12.5vmin;
-    height: 100%
-  }
+  flex: 1;
 }
 
 /* Main */
 
 main {
-  flex: 1;
+  flex: 0 0 75vmin;
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
-.main-area {
-  flex: 1;
-  height: 100%;
-}
-
-@media (orientation: portrait) {
+@media (max-aspect-ratio: 8/10) {
   main {
-    height: 100%;
     flex-direction: column;
   }
+}
 
-  .main-area {
-    width: 100%;
+/* Canvas */
+
+#canvas {
+  flex: 0 0 75vmin;
+  aspect-ratio: 1/1;
+}
+
+/* Main side areas */
+
+#controls-side-a,
+#controls-side-b {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1% 2%;
+}
+
+@media (max-aspect-ratio: 8/10) {
+  #controls-side-a,
+  #controls-side-b {
+    padding: 4% 1%;
+    flex-direction: row-reverse;
   }
 }
 
-/* Controls */
+/* Button containers */
 
-#controls-left,
-#controls-right {
-  width: 100%;
-  height: 100%;
+.rectangled-ui {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1% 5%;
-  gap: 2%;
+  gap: 3vmin;
 }
 
-#slider-logo-container {
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
-  height: 50%;
-  gap: 5%;
-  width: 100%
-}
-
-#controls-left {
+#controls-side-a {
   align-items: flex-start;
 }
 
-#controls-right {
+#controls-side-b {
   align-items: flex-end;
-}
-
-#general-controls,
-#color-controls,
-#marker-controls,
-#slider-logo-container {
-  flex: 1;
-  width: 100%;
 }
 
 #general-controls {
   align-items: flex-start;
-  justify-content: flex-start;
+}
+
+#slider-logo-container {
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
 }
 
 #color-controls {
@@ -214,91 +201,48 @@ main {
 }
 
 #marker-controls {
-  max-width: 37.5vmin;
-  flex-direction: row;
   justify-content: flex-end;
   align-content: flex-end;
   flex-wrap: wrap;
+  max-width: 37.5vmin;
 }
 
-#slider-container {
-  max-width: 75%;
-  width: 37.5vmin;
-  display: flex;
-  gap: 3%;
+.squared-ui {
+  display: none;
 }
 
-@media (orientation:portrait) {
-  #controls-right,
-  #controls-left {
-    padding: 5% 1%;
-    flex-direction: row-reverse;
+@media (max-aspect-ratio: 8/10) {
+  .rectangled-ui {
+    max-width: 50%;
   }
-
-  #general-controls,
-  #color-controls,
-  #marker-controls,
-  #slider-logo-container {
-    width: auto;
-    height: 100%;
-  }
-
 
   #general-controls {
     justify-content: flex-end;
   }
 
   #slider-logo-container {
-    height: 100%;
-    width: auto;
     flex-direction: column-reverse;
     justify-content: space-between;
-  }
-
-  #marker-controls {
-    justify-content: flex-start;
+    height: 100%;
   }
 
   #color-controls {
     align-items: flex-end;
   }
 
-  #slider-container {
-    max-width: 100%;
+  #marker-controls {
+    justify-content: flex-start;
   }
 }
 
-/* Buttons */
-.buttons-container {
-  display: flex;
-  gap: 3vmin;
-}
+@media (max-aspect-ratio: 14/10) and (min-aspect-ratio: 8/10) {
+  .rectangled-ui {
+    display: none;
+  }
 
-.buttons-container label,
-.buttons-container button {
-  position: relative;
-  aspect-ratio: 1/1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.button-cover {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-label .icon {
-  position: absolute;
-}
-
-/* Canvas */
-
-#canvas {
-  height: 75vmin;
-  width: 75vmin;
-  aspect-ratio: 1/1;
+  .squared-ui {
+    display: flex;
+  }
 }
 
 /* AESTHETICS */
@@ -320,12 +264,12 @@ label .icon {
 
 /* Buttons */
 
-.icon {
-  position: relative;
-  z-index: 10;
-  font-size: var(--fs-icon);
-  color: var(--color-button-icon);
-  user-select: none;
+.buttons-container label,
+.buttons-container button {
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .buttons-container label input {
@@ -333,16 +277,14 @@ label .icon {
 }
 
 .button-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   border: var(--border-button);
   background: var(--bg-button);
   border-radius: 6%;
   box-shadow: var(--box-shadow-button);
   cursor: pointer;
-}
-
-.button-cover:active,
-.buttons-container label input:checked ~ .button-cover {
-  box-shadow: var(--box-shadow-button-active);
 }
 
 .button-cover::before {
@@ -353,6 +295,19 @@ label .icon {
   filter: blur(0.3vmin);
 }
 
+.button-cover:active,
+.buttons-container label input:checked ~ .button-cover {
+  box-shadow: var(--box-shadow-button-active);
+}
+
+.icon {
+  position: relative;
+  z-index: 10;
+  font-size: var(--fs-icon);
+  color: var(--color-button-icon);
+  user-select: none;
+}
+
 .button-cover:active > .icon,
 .buttons-container label input:checked ~ .icon {
   color: var(--text-color-button-active);
@@ -360,51 +315,52 @@ label .icon {
   transition: all 0.2s ease;
 }
 
+/* Genral-controls */
+
 #general-controls label {
   width: 10vmin;
 }
 
-/* Marker inputs */
+/* Slider-logo */
 
-#marker-controls label {
-  width: 8vmin;
+.slider-container .icon,
+.logo h1,
+.logo p {
+  background: var(--color-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Color inputs */
-
-#color-controls label {
-  width: 10vmin;
+.slider-container {
+  max-width: 75%;
+  width: 18vw;
+  display: flex;
+  gap: 3%;
 }
 
-#marker-color-input + .icon {
-  color: var(--color-text);
+.logo h1 {
+  font-size: var(--fs-h1);
+  font-family: Kamryn, sans-serif;
 }
 
-input[type=color i] {
-  position: relative;
-  border-radius: 6%;
-  inline-size: 10vmin;
-  block-size: 10vmin;
-  background: var(--bg-button);
-  border: var(--border-button);
-  box-shadow: var(--box-shadow-button);
-  padding: 0.9vmin;
-  cursor: pointer;
+.logo p {
+  padding-left: 0.5em;
+  font-size: var(--fs-p);
+  font-style: italic;
+  font-weight: 400;
+  font-family: sans-serif;
 }
 
-input[type=color i]::-webkit-color-swatch-wrapper {
-  padding: 0.15vmin;
+@media (max-aspect-ratio: 8/10) {
+  .slider-container {
+    max-width: 100%;
+    width: 37.5vmin;
+  }
 }
 
-input[type=color i]::-webkit-color-swatch {
-  border-radius: 6%;
-}
-
-input[type=color i]::-moz-color-swatch {
-  border-radius: 6%;
-}
-
-/* Slider */
+/* Slider specific */
 
 input[type="range"] {
   appearance: none;
@@ -487,29 +443,53 @@ input[type=range]::-ms-track {
   border: var(--border-slider-track);
 }
 
+/* Color controls */
 
-/* Logo & frame icons*/
-
-#slider-container .icon,
-.logo h1,
-.logo p {
-  background: var(--color-gradient-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+#color-controls label {
+  width: 10vmin;
 }
 
-.logo h1 {
-  font-size: var(--fs-h1);
-  font-family: Kamryn, sans-serif;
+input[type=color] + .icon {
+  position: absolute;
 }
 
-.logo p {
-  padding-left: 0.5em;
-  font-size: var(--fs-p);
-  font-style: italic;
-  font-weight: 400;
-  font-family: sans-serif;
+#marker-color-input + .icon {
+  color: var(--color-text);
 }
+
+input[type=color i] {
+  position: relative;
+  border-radius: 6%;
+  inline-size: 10vmin;
+  block-size: 10vmin;
+  background: var(--bg-button);
+  border: var(--border-button);
+  box-shadow: var(--box-shadow-button);
+  padding: 0.9vmin;
+  cursor: pointer;
+}
+
+input[type=color i]::-webkit-color-swatch-wrapper {
+  padding: 0.15vmin;
+}
+
+input[type=color i]::-webkit-color-swatch {
+  border-radius: 6%;
+}
+
+input[type=color i]::-moz-color-swatch {
+  border-radius: 6%;
+}
+
+/* Marker controls */
+
+#marker-controls label {
+  width: 8vmin;
+}
+
+
+
+
+
+
 
