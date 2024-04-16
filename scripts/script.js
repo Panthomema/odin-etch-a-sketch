@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  const markerControls = document.querySelectorAll('#marker-controls input');
+  const markerControls = document.querySelectorAll('input[name="marker-options"]');
 
   markerControls.forEach(input => {
     input.addEventListener('click', event => {

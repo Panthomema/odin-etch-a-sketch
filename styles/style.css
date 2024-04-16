@@ -2,6 +2,8 @@
 
 /* Font importation */
 
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 @font-face {
   font-family: 'Kamryn';
   src: url('../fonts/Kamryn\ 3D\ Italic\ D.otf') format('opentype');
@@ -51,22 +53,30 @@ button {
 /* Variables + responsive fonts*/ 
 
 :root {
+  --ff-general: 'Pixelify Sans', sans-serif;
   --bg-frame: linear-gradient(rgb(207, 0, 0), rgb(156, 0, 0));
   --color-gradient-text: linear-gradient(
     rgb(204, 204, 204), rgb(170, 170, 170), rgb(136, 136, 136)
   );
   --color-text: rgb(186, 186, 186);
-  --fs-h1: 4vw;
-  --fs-p: 1.75vw;
-  --ff-title: sans-serif;
-  
+  --fs-h1: 4vmax;
+  --fs-p: 1.75vmax;
+  --ff-logo: Kamryn, sans-serif;
+  --ff-logo-text: sans-serif;
+
+  --fs-canvas-title: 4vmin;
+  --fs-canvas-text: 2.5vmin;
+  --color-text-canvas: rgb(51, 51, 51);
+  --border-canvas-button: 0.4vmin dotted var(--color-text-canvas);
+  --border-canvas-button-hover: 0.4vmin dashed var(--color-text-canvas);
   --bg-canvas: rgb(192, 192, 192);
   --border-canvas: 0.5vmin solid rgb(120, 0, 0);
   --box-shadow-canvas:
       inset 0 0.3vmin 0.3vmin rgba(0, 0, 0, 0.35),
       inset 0 0.6vmin 0.6vmin rgba(0, 0, 0, 0.5),
       inset 0 1.2vmin 2.4vmin rgba(0, 0, 0, 0.35);
-      
+  
+  
   --border-button: 0.15vmin solid rgb(120, 0, 0);
   --bg-button: linear-gradient(
     rgb(204, 204, 204), rgb(170, 170, 170), rgb(136, 136, 136)
@@ -99,11 +109,18 @@ button {
 
 }
 
-@media (max-aspect-ratio: 8/10) {
+@media (max-aspect-ratio: 799/1000) {
   :root {
-    --fs-h1: 6vw;
-    --fs-p: 2.75vw;
+    --fs-h1: 6vmin;
+    --fs-p: 2.75vmin;
   }
+}
+
+@media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 14/10) {
+  :root {
+    --fs-h1: 4vmax;
+    --fs-p: 2vmax;
+  };
 }
 
 /* LAYOUT */
@@ -118,7 +135,7 @@ button {
   justify-content: center;
 }
 
-@media (max-aspect-ratio: 8/10){
+@media (max-aspect-ratio: 799/1000){
   #frame {
     flex-direction: row;
   }
@@ -128,6 +145,9 @@ button {
 
 .aux-area {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Main */
@@ -138,7 +158,7 @@ main {
   justify-content: center;
 }
 
-@media (max-aspect-ratio: 8/10) {
+@media (max-aspect-ratio: 799/1000) {
   main {
     flex-direction: column;
   }
@@ -149,6 +169,23 @@ main {
 #canvas {
   flex: 0 0 75vmin;
   aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#welcome-message {
+  width: 80%;
+  height: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 10%;
+}
+
+#welcome-message p {
+  margin-bottom: auto;
 }
 
 /* Main side areas */
@@ -161,7 +198,7 @@ main {
   padding: 1% 2%;
 }
 
-@media (max-aspect-ratio: 8/10) {
+@media (max-aspect-ratio: 799/1000) {
   #controls-side-a,
   #controls-side-b {
     padding: 4% 1%;
@@ -207,11 +244,12 @@ main {
   max-width: 37.5vmin;
 }
 
-.squared-ui {
+.squared-ui,
+#zoom-controls {
   display: none;
 }
 
-@media (max-aspect-ratio: 8/10) {
+@media (max-aspect-ratio: 799/1000) {
   .rectangled-ui {
     max-width: 50%;
   }
@@ -221,6 +259,7 @@ main {
   }
 
   #slider-logo-container {
+    padding-bottom: 2%;
     flex-direction: column-reverse;
     justify-content: space-between;
     height: 100%;
@@ -235,14 +274,43 @@ main {
   }
 }
 
-@media (max-aspect-ratio: 14/10) and (min-aspect-ratio: 8/10) {
+/* Squared-ui */
+
+@media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 14/10) {
   .rectangled-ui {
     display: none;
   }
 
-  .squared-ui {
+  .squared-ui,
+  #zoom-controls {
     display: flex;
   }
+
+  #controls-side-a,
+  #controls-side-b {
+    align-items: center;
+  }
+}
+
+.logo.squared-ui {
+  width: 55vmin;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-container.squared-ui {
+  width: 45vmin;
+}
+
+
+.buttons-container.squared-ui {
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.squared-ui label {
+  height: 8vmin;
 }
 
 /* AESTHETICS */
@@ -260,6 +328,36 @@ main {
   border-radius: 2%;
   box-shadow: var(--box-shadow-canvas);
   border: var(--border-canvas);
+  color: var(--color-text-canvas);
+}
+
+#welcome-message {
+  font-family: var(--ff-general);
+  text-align: center;
+  user-select: none;
+}
+
+#welcome-message h2 {
+  font-size: var(--fs-canvas-title);
+  font-weight: 600;
+}
+
+#welcome-message p {
+  font-size: var(--fs-canvas-text);
+}
+
+#welcome-message button {
+  padding: 1.5vmin;
+  background: transparent;
+  color: var(--color-text-canvas);
+  font-family: var(--ff-general);
+  font-size: var(--fs-canvas-text);
+  border: var(--border-canvas-button);
+  border-radius: 7%;
+}
+
+#welcome-message button:hover {
+  border: var(--border-canvas-button-hover);
 }
 
 /* Buttons */
@@ -315,7 +413,7 @@ main {
   transition: all 0.2s ease;
 }
 
-/* Genral-controls */
+/* General-controls */
 
 #general-controls label {
   width: 10vmin;
@@ -331,6 +429,7 @@ main {
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  user-select: none;
 }
 
 .slider-container {
@@ -342,7 +441,7 @@ main {
 
 .logo h1 {
   font-size: var(--fs-h1);
-  font-family: Kamryn, sans-serif;
+  font-family: var(--ff-logo);
 }
 
 .logo p {
@@ -350,14 +449,20 @@ main {
   font-size: var(--fs-p);
   font-style: italic;
   font-weight: 400;
-  font-family: sans-serif;
+  font-family: var(--ff-logo-text);
 }
 
-@media (max-aspect-ratio: 8/10) {
+@media (max-aspect-ratio: 799/1000) {
   .slider-container {
     max-width: 100%;
     width: 37.5vmin;
   }
+}
+
+@media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 14/10) {
+  .logo p {
+    padding: 0;
+  } 
 }
 
 /* Slider specific */
@@ -453,7 +558,7 @@ input[type=color] + .icon {
   position: absolute;
 }
 
-#marker-color-input + .icon {
+.marker-color-input + .icon {
   color: var(--color-text);
 }
 
@@ -485,6 +590,15 @@ input[type=color i]::-moz-color-swatch {
 
 #marker-controls label {
   width: 8vmin;
+}
+
+/* Squared-ui */
+
+@media (min-aspect-ratio: 8/10) and (max-aspect-ratio: 14/10) {
+  input[type=color i] {
+    inline-size: 8vmin;
+    block-size: 8vmin;
+  }
 }
 
 
