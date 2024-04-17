@@ -3,53 +3,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const controls = [
     {
       selector: '.clear',
-      hoverMsg: 'Clear canvas',
+      tooltipMsg: 'clear canvas',
     },
     {
       selector: '.grid-toggler',
-      hoverMsg: 'Toggle grid lines',
+      tooltipMsg: 'toggle grid lines',
     },
     {
       selector: '.zoom',
+      tooltipMsg: 'zoom',
     },
     {
       selector: '.marker-color',
-      hoverMsg: 'Marker color',
+      tooltipMsg: 'marker color',
     },
     {
       selector: '.bg-color',
-      hoverMsg: 'Background color',
+      tooltipMsg: 'background color',
     },
     {
       selector: '.marker',
-      hoverMsg:'Marker',
+      tooltipMsg:'marker',
     },
     {
       selector: '.eraser',
-      hoverMsg: 'Eraser',
+      tooltipMsg: 'eraser',
     },
     {
       selector: '.randomizer',
-      hoverMsg: 'Color randomizer',
+      tooltipMsg: 'color randomizer',
     },
     {
       selector: '.color-picker',
-      hoverMsg: 'Color picker',
+      tooltipMsg: 'color picker',
     },
     {
       selector: '.lightener',
-      hoverMsg: 'Lightener',
+      tooltipMsg: 'lightener',
     },
     {
       selector: '.darkener',
-      hoverMsg: 'Darkener',
+      tooltipMsg: 'darkener',
     },
   ];
 
   for (const control of controls) {
     control.inputNodes = document.querySelectorAll(control.selector);
   }
-  
+
   for (const control of controls) {
     const inputs = [...control.inputNodes];
 
@@ -61,6 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (inputs.every(node => node.type === 'range')) syncRangeInputs(inputs);
   }
+
+  for (const control of controls) {
+    control.parentNodes = [...control.inputNodes].map(node => node.parentNode);
+    console.log(control.parentNodes);
+  }
+
+  for (const control of controls) {
+    control.parentNodes.forEach(node => addTooltip(node, control.tooltipMsg));
+  }
+  
+  
 
   document.querySelectorAll('[type=color]').forEach(input => {
     input.addEventListener('input', event => {
@@ -103,7 +115,7 @@ function updateIconColor(colorInput) {
 
   icon.style.color = (luminance > 0.5) 
     ? 'var(--color-button-icon)' 
-    : 'var(--color-text)';
+    : 'var(--color-light)';
 }
 
 function syncCheckboxes(pair) {
@@ -144,5 +156,15 @@ function syncRangeInputs(pair) {
     console.log('input2 updated');
     input1.value = input2.value;
   });
+}
+
+function addTooltip(elem, text) {
+  elem.classList.add('tooltip-container');
+
+  const tooltipText = document.createElement('div');
+  tooltipText.classList.add('tooltip-text');
+  tooltipText.textContent = text;
+
+  elem.appendChild(tooltipText);
 }
 

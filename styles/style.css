@@ -58,7 +58,8 @@ button {
   --color-gradient-text: linear-gradient(
     rgb(204, 204, 204), rgb(170, 170, 170), rgb(136, 136, 136)
   );
-  --color-text: rgb(186, 186, 186);
+  --color-light: rgb(186, 186, 186);
+  --color-dark: rgb(51, 51, 51);
   --fs-h1: 4vmax;
   --fs-p: 1.75vmax;
   --ff-logo: Kamryn, sans-serif;
@@ -66,9 +67,8 @@ button {
 
   --fs-canvas-title: 4vmin;
   --fs-canvas-text: 2.5vmin;
-  --color-text-canvas: rgb(51, 51, 51);
-  --border-canvas-button: 0.4vmin dotted var(--color-text-canvas);
-  --border-canvas-button-hover: 0.4vmin dashed var(--color-text-canvas);
+  --border-canvas-button: 0.4vmin dotted var(--color-dark);
+  --border-canvas-button-hover: 0.4vmin dashed var(--color-dark);
   --bg-canvas: rgb(192, 192, 192);
   --border-canvas: 0.5vmin solid rgb(120, 0, 0);
   --box-shadow-canvas:
@@ -107,6 +107,7 @@ button {
   --bg-slider-track: rgb(170, 170, 170);
   --border-slider-track: 0.4vmin solid rgb(100, 0, 0);
 
+  --border-tooltip: 0.33vmin solid var(--color-light);
 }
 
 @media (max-aspect-ratio: 799/1000) {
@@ -328,7 +329,7 @@ main {
   border-radius: 2%;
   box-shadow: var(--box-shadow-canvas);
   border: var(--border-canvas);
-  color: var(--color-text-canvas);
+  color: var(--color-dark);
 }
 
 #welcome-message {
@@ -349,7 +350,7 @@ main {
 #welcome-message button {
   padding: 1.5vmin;
   background: transparent;
-  color: var(--color-text-canvas);
+  color: var(--color-dark);
   font-family: var(--ff-general);
   font-size: var(--fs-canvas-text);
   border: var(--border-canvas-button);
@@ -559,7 +560,7 @@ input[type=color] + .icon {
 }
 
 .marker-color + .icon {
-  color: var(--color-text);
+  color: var(--color-light);
 }
 
 input[type=color i] {
@@ -601,7 +602,34 @@ input[type=color i]::-moz-color-swatch {
   }
 }
 
+/* Tooltips */
 
+.tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  width: 150%;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  border: var(--border-tooltip); 
+  padding: 1vmin 0;
+  border-radius: 1vmin;
+
+  text-align: center;
+  font-family: var(--ff-general);
+  font-weight: 400;
+  font-size: 1.75vmin;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s; 
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 
 
