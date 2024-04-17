@@ -3,36 +3,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const controls = [
     {
       selector: '.clear',
+      hoverMsg: 'Clear canvas',
     },
     {
       selector: '.grid-toggler',
+      hoverMsg: 'Toggle grid lines',
     },
     {
-      selector: 'zoom',
+      selector: '.zoom',
     },
     {
       selector: '.marker-color',
+      hoverMsg: 'Marker color',
     },
     {
       selector: '.bg-color',
+      hoverMsg: 'Background color',
     },
     {
       selector: '.marker',
+      hoverMsg:'Marker',
     },
     {
       selector: '.eraser',
+      hoverMsg: 'Eraser',
     },
     {
       selector: '.randomizer',
+      hoverMsg: 'Color randomizer',
     },
     {
       selector: '.color-picker',
+      hoverMsg: 'Color picker',
     },
     {
       selector: '.lightener',
+      hoverMsg: 'Lightener',
     },
     {
       selector: '.darkener',
+      hoverMsg: 'Darkener',
     },
   ];
 
@@ -45,12 +55,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (inputs.every(node => node.nodeName === 'BUTTON')) continue;
 
-    if (inputs.every(node => node.type === 'checkbox')) {
-      syncCheckboxes(inputs);
-    } else {
-      console.log(inputs);
-    }
+    if (inputs.every(node => node.type === 'checkbox')) syncCheckboxes(inputs);
+
+    if (inputs.every(node => node.type === 'color')) syncColorInputs(inputs);
     
+    if (inputs.every(node => node.type === 'range')) syncRangeInputs(inputs);
   }
 
   document.querySelectorAll('[type=color]').forEach(input => {
@@ -106,6 +115,34 @@ function syncCheckboxes(pair) {
 
   checkbox2.addEventListener('change', () => {
     checkbox1.checked = checkbox2.checked;
+  });
+}
+
+function syncColorInputs(pair) {
+  const [input1, input2] = pair;
+
+  input1.addEventListener('change', () => {
+    input2.value = input1.value;
+    updateIconColor(input2);
+  });
+
+  input2.addEventListener('change', () => {
+    input1.value = input2.value;
+    updateIconColor(input1);
+  });
+}
+
+function syncRangeInputs(pair) {
+  const [input1, input2] = pair;
+
+  input1.addEventListener('input', () => {
+    console.log('input1 updated');
+    input2.value = input1.value;
+  });
+
+  input2.addEventListener('input', () => {
+    console.log('input2 updated');
+    input1.value = input2.value;
   });
 }
 
