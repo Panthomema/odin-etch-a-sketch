@@ -189,6 +189,20 @@ main {
   margin-bottom: auto;
 }
 
+#content-wrapper {
+  width: 97%;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-wrap: wrap;
+  border: 0.25vmin solid #333;
+  transition: opacity 0.4s ease;
+}
+
+#content-wrapper div {
+  aspect-ratio: 1/1;
+  border: 0.25vmin solid #333;
+}
+
 /* Main side areas */
 
 #controls-side-a,
@@ -336,6 +350,7 @@ main {
   font-family: var(--ff-general);
   text-align: center;
   user-select: none;
+  transition: opacity 0.4s ease;
 }
 
 #welcome-message h2 {
@@ -359,6 +374,10 @@ main {
 
 #welcome-message button:hover {
   border: var(--border-canvas-button-hover);
+}
+
+.hidden {
+  opacity: 0;
 }
 
 /* Buttons */
@@ -607,7 +626,8 @@ input[type=color i]::-moz-color-swatch {
 .tooltip-text {
   visibility: hidden;
   position: absolute;
-  width: 150%;
+  width: 12.5vmin;
+  height: fit-content;
   background-color: var(--color-dark);
   color: var(--color-light);
   border: var(--border-tooltip); 
@@ -629,6 +649,17 @@ input[type=color i]::-moz-color-swatch {
   bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+@media (max-aspect-ratio: 799/1000) {
+  .tooltip-container:hover .grid-toggler ~ .tooltip-text,
+  .tooltip-container:hover .clear ~ .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 
