@@ -195,7 +195,6 @@ main {
   aspect-ratio: 1/1;
   display: flex;
   flex-wrap: wrap;
-  transition: opacity 0.4s ease;
 }
 
 #content-wrapper div {

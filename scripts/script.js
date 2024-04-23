@@ -111,25 +111,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add restart project functionality
 
-  const clearButtons = controls.find(control => control.selector === '.clear');
-  clearButtons.inputNodes.forEach(node => {
+  const clearButton = controls.find(control => control.selector === '.clear');
+  clearButton.inputNodes.forEach(node => {
     node.addEventListener('click', restartProject);
   });
 
   // Add resize content functionality
   
-  const sliders = controls.find(control => control.selector === '.zoom');
-  sliders.inputNodes.forEach(node => {
+  const slider = controls.find(control => control.selector === '.zoom');
+  slider.inputNodes.forEach(node => {
     node.addEventListener('input', resizeContent);
   });
 
-  // Add toggle grid fucntionality
+  // Add toggle grid functionality
 
-  const gridTogglers = controls
+  const gridToggler = controls
     .find(control => control.selector === '.grid-toggler');
-  gridTogglers.inputNodes.forEach(node => {
+  gridToggler.inputNodes.forEach(node => {
     node.addEventListener('change', toggleGrid);
   });
+
+  // Add background color change functionality
+
+  const bgColor = controls.find(control => control.selector === '.bg-color');
+  bgColor.inputNodes.forEach(node => {
+    node.addEventListener('input', updateBgColor);
+  });
+
 });
 
 
@@ -208,7 +216,8 @@ function addTooltip(elem, text) {
 function startProject() {
   project = new Project(
     document.querySelector('[type=range]').max,
-    document.querySelector('.grid-toggler').checked
+    document.querySelector('.grid-toggler').checked,
+    document.querySelector('.bg-color').value
   );
   formatContent();
 }
@@ -248,5 +257,9 @@ function resizeContent() {
 
 function toggleGrid() {
   if (typeof project !== 'undefined') project.toggleGridLines();
+}
+
+function updateBgColor(event) {
+  project.updateBgColor(event.target.value);
 }
 
