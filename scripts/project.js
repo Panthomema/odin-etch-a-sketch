@@ -2,12 +2,16 @@ export class Project
 {
   #content;
 
-  constructor(maxSide) {
+  constructor(maxSide, gridLinesOn) {
     this.maxSide = maxSide;
     this.#content = Array.from(
       { length: this.maxSide ** 2 },
       () => document.createElement('div')
     );
+    this.wrapper = document.createElement('div');
+    this.wrapper.setAttribute('id', 'content-wrapper');
+
+    if (gridLinesOn) this.toggleGridLines();
   }
 
   resize(sideLength) {
@@ -31,20 +35,25 @@ export class Project
   }
 
   render(sideLength) {
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('id', 'content-wrapper');
-
+    this.wrapper.innerHTML = '';
+    
     const content = this.resize(sideLength);
-
     const pixelWidth = `${ 100 / sideLength }%`;
 
     console.log(pixelWidth);
     content.forEach(pixel => {
       pixel.style.width = pixelWidth; 
-      wrapper.appendChild(pixel);
+      this.wrapper.appendChild(pixel);
     });
 
-    return wrapper;
+    return this.wrapper;
+  }
+
+  toggleGridLines() {
+    this.wrapper.classList.toggle('grid-lines-on');
+    this.content.forEach(pixel => {
+      pixel.classList.toggle('grid-lines-on');
+    });
   }
 
   get content() {

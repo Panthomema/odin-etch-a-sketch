@@ -75,7 +75,8 @@ button {
       inset 0 0.3vmin 0.3vmin rgba(0, 0, 0, 0.35),
       inset 0 0.6vmin 0.6vmin rgba(0, 0, 0, 0.5),
       inset 0 1.2vmin 2.4vmin rgba(0, 0, 0, 0.35);
-  
+
+  --border-grid-lines: 0.25vmin solid var(--color-dark);
   
   --border-button: 0.15vmin solid rgb(120, 0, 0);
   --bg-button: linear-gradient(
@@ -194,13 +195,11 @@ main {
   aspect-ratio: 1/1;
   display: flex;
   flex-wrap: wrap;
-  border: 0.25vmin solid #333;
   transition: opacity 0.4s ease;
 }
 
 #content-wrapper div {
   aspect-ratio: 1/1;
-  border: 0.25vmin solid #333;
 }
 
 /* Main side areas */
@@ -376,8 +375,16 @@ main {
   border: var(--border-canvas-button-hover);
 }
 
+#content-wrapper {
+  transition: opacity 0.4s ease;
+}
+
 .hidden {
   opacity: 0;
+}
+
+.grid-lines-on {
+  border: var(--border-grid-lines);
 }
 
 /* Buttons */

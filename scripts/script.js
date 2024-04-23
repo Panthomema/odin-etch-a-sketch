@@ -112,13 +112,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add restart project functionality
 
   const clearButtons = controls.find(control => control.selector === '.clear');
-
   clearButtons.inputNodes.forEach(node => {
     node.addEventListener('click', restartProject);
   });
+
+  // Add resize content functionality
   
+  const sliders = controls.find(control => control.selector === '.zoom');
+  sliders.inputNodes.forEach(node => {
+    node.addEventListener('input', resizeContent);
+  });
 
+  // Add toggle grid fucntionality
 
+  const gridTogglers = controls
+    .find(control => control.selector === '.grid-toggler');
+  gridTogglers.inputNodes.forEach(node => {
+    node.addEventListener('change', toggleGrid);
+  });
 });
 
 
@@ -195,7 +206,10 @@ function addTooltip(elem, text) {
 
 
 function startProject() {
-  project = new Project(document.querySelector('[type=range]').max);
+  project = new Project(
+    document.querySelector('[type=range]').max,
+    document.querySelector('.grid-toggler').checked
+  );
   formatContent();
 }
 
@@ -225,9 +239,14 @@ function removeAfterTransition(event, propertyName) {
 }
 
 function restartProject() {
-  const canvasContent = document.querySelector('#canvas').firstElementChild;
-  if (canvasContent.id === 'content-wrapper') {
-    startProject();
-  }
+  if (typeof project !== 'undefined') startProject();
+}
+
+function resizeContent() {
+  if (typeof project !== 'undefined') formatContent();
+}
+
+function toggleGrid() {
+  if (typeof project !== 'undefined') project.toggleGridLines();
 }
 
