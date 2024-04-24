@@ -49,7 +49,7 @@ export class Project
       'color-picker': event => {
         const markerInput = document.querySelector('.marker-color');
         const color = event.currentTarget.style.background;
-        markerInput.value = hexToRgb(color);
+        markerInput.value = this.rgbToHex(...color.replace(/[^\d,]/g, '').split(',').map(str => Number(str)));
       }
     }
   }
@@ -122,6 +122,16 @@ export class Project
     const markerOptions = document.querySelectorAll('[name=marker-options]');
     const checkedOption = ([...markerOptions].find(node => node.checked));
     if (checkedOption) this.markerFunctions[checkedOption.classList[0]](event);
+  }
+
+  rgbToHex(r, g, b) {
+    // Convert each color component to a hexadecimal string and pad with zeros if necessary
+    const hexR = r.toString(16).padStart(2, '0');
+    const hexG = g.toString(16).padStart(2, '0');
+    const hexB = b.toString(16).padStart(2, '0');
+
+    // Combine the hexadecimal strings
+    return `#${hexR}${hexG}${hexB}`;
   }
 
   get content() {
