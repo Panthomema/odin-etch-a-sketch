@@ -194,10 +194,16 @@ main {
   width: 97%;
   aspect-ratio: 1/1;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-#content-wrapper div {
+#content-wrapper .row {
+  flex: 1;
+  display: flex;
+}
+
+#content-wrapper .row div {
+  display: flex;
   aspect-ratio: 1/1;
 }
 

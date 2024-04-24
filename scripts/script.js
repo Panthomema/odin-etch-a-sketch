@@ -260,6 +260,6 @@ function toggleGrid() {
 }
 
 function updateBgColor(event) {
-  project.updateBgColor(event.target.value);
+  if (typeof project !== 'undefined') project.updateBgColor(event.target.value);
 }
 

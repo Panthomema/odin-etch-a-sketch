@@ -4,47 +4,73 @@ export class Project
 
   constructor(maxSide, gridLinesOn, bgColor) {
     this.maxSide = maxSide;
-    this.#content = Array.from(
-      { length: this.maxSide ** 2 },
-      () => document.createElement('div')
-    );
+
+    this.#content = this.initContent();
+    this.markerFunctions = this.initMarkerFunctions();
+
     this.wrapper = document.createElement('div');
     this.wrapper.setAttribute('id', 'content-wrapper');
 
+    this.mouseIsDown = false;
+    //document.body.addEventListener('mousedown', () => this.mouseIsDown = true);
+    //document.body.addEventListener('mouseup', () => this.mouseIsDown = false);
+
     if (gridLinesOn) this.toggleGridLines();
-    
     this.updateBgColor(bgColor);
   }
 
-  resize(sideLength) {
+  initContent() {
+    return Array.from(
+      { length: this.maxSide ** 2 },
+      () => {
+        const pixel = document.createElement('div');
+        pixel.setAttribute('data-painted', '');
+        pixel.addEventListener('mousedown', this.callMarkerFunction.bind(this));
+        return pixel;
+      }
+    );
+  }
+
+  initMarkerFunctions() {
+    return {
+      marker: event => {
+        event.currentTarget.dataset.painted = 'true';
+        const color = document.querySelector('.marker-color').value;
+        event.currentTarget.style.background = color;
+      }
+    }
+  }
+
+  formatContent(sideLength) {
     const cutRatio = (this.maxSide - sideLength) / 2;
     let rows = this.splitInRows(this.content, this.maxSide);
-    console.log();
 
-    rows = rows.slice(cutRatio, rows.length - cutRatio);
-    return rows.flatMap(row => row.slice(cutRatio, row.length - cutRatio));
+    return rows
+      .slice(cutRatio, rows.length - cutRatio)
+      .map(row => row.slice(cutRatio, row.length - cutRatio));
   }
 
   splitInRows(array, rowSize) {
-    const result = [];
+    const rows = [];
     const step = Number(rowSize);
 
     for (let index = 0; index < array.length; index += step) {
-      result.push(array.slice(index, index + step));
+      rows.push(array.slice(index, index + step));
     }
 
-    return result;
+    return rows;
   }
 
   render(sideLength) {
     this.wrapper.innerHTML = '';
 
-    const content = this.resize(sideLength);
-    const pixelWidth = `${ 100 / sideLength }%`;
+    const rows = this.formatContent(sideLength);
 
-    content.forEach(pixel => {
-      pixel.style.width = pixelWidth; 
-      this.wrapper.appendChild(pixel);
+    rows.forEach(row => {
+      const rowContainer = document.createElement('div');
+      rowContainer.classList.add('row');
+      row.forEach(pixel => { rowContainer.appendChild(pixel) });
+      this.wrapper.appendChild(rowContainer); 
     });
 
     return this.wrapper;
@@ -59,8 +85,15 @@ export class Project
 
   updateBgColor(color) {
     this.content.forEach(pixel => {
-      pixel.style.backgroundColor = color;
-    });
+      if (!pixel.dataset.painted) pixel.style.background = color;
+    }); 
+  }
+
+  callMarkerFunction(event) {
+    //if (!this.mouseIsDown) return;
+    const markerOptions = document.querySelectorAll('[name=marker-options]');
+    const checkedOption = ([...markerOptions].find(node => node.checked));
+    if (checkedOption) this.markerFunctions[checkedOption.classList[0]](event);
   }
 
   get content() {
