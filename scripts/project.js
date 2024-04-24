@@ -12,11 +12,11 @@ export class Project
     this.wrapper.setAttribute('id', 'content-wrapper');
 
     this.mouseIsDown = false;
-    //document.body.addEventListener('mousedown', () => this.mouseIsDown = true);
-    //document.body.addEventListener('mouseup', () => this.mouseIsDown = false);
-
+    this.addWrapperListeners();
+    
     if (gridLinesOn) this.toggleGridLines();
     this.updateBgColor(bgColor);
+
   }
 
   initContent() {
@@ -25,6 +25,7 @@ export class Project
       () => {
         const pixel = document.createElement('div');
         pixel.setAttribute('data-painted', '');
+        pixel.addEventListener('mouseover', this.callMarkerFunction.bind(this));
         pixel.addEventListener('mousedown', this.callMarkerFunction.bind(this));
         return pixel;
       }
@@ -37,8 +38,35 @@ export class Project
         event.currentTarget.dataset.painted = 'true';
         const color = document.querySelector('.marker-color').value;
         event.currentTarget.style.background = color;
+      },
+      eraser: event => {
+        if(event.currentTarget.dataset.painted === 'true') {
+          event.currentTarget.dataset.painted = '';
+          const color = document.querySelector('.bg-color').value;
+          event.currentTarget.style.background = color;
+        }
+      },
+      'color-picker': event => {
+        const markerInput = document.querySelector('.marker-color');
+        const color = event.currentTarget.style.background;
+        markerInput.value = hexToRgb(color);
       }
     }
+  }
+
+  addWrapperListeners() {
+    this.wrapper.addEventListener('mousedown', event => {
+      event.preventDefault();
+      this.mouseIsDown = true;
+    });
+    this.wrapper.addEventListener('mouseup', () => { 
+      this.mouseIsDown = false 
+    });
+    this.wrapper.addEventListener('mouseout', event => {
+      if (!this.wrapper.contains(event.relatedTarget)) {
+        this.mouseIsDown = false;
+      }
+    });
   }
 
   formatContent(sideLength) {
@@ -90,7 +118,7 @@ export class Project
   }
 
   callMarkerFunction(event) {
-    //if (!this.mouseIsDown) return;
+    if (event.type === 'mouseover' && !this.mouseIsDown) return;
     const markerOptions = document.querySelectorAll('[name=marker-options]');
     const checkedOption = ([...markerOptions].find(node => node.checked));
     if (checkedOption) this.markerFunctions[checkedOption.classList[0]](event);
