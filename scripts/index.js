@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   }
 
+  // Bind all marker controls so they behave like radio buttons
+
   Object.values(controls.markerOptions)
     .reduce((nodes, control) => nodes.concat(control.inputNodes), [])
     .forEach((node, _, allNodes) => {
@@ -36,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
           .forEach(otherNode => { otherNode.checked = false });
       });
     });
+
+  //Action associated eith each marker  
   
   const markerActions = {
     marker: event => {
@@ -81,6 +85,8 @@ document.addEventListener('DOMContentLoaded', () => {
   for (const option in markerActions) {
     controls.markerOptions[option].action = markerActions[option];
   }
+
+  // Function to pass to project as a content listener (solves scope issues)
   
   const contentListener = event => {
     if (event.type === 'mouseover' && !mouseIsDown) return;
@@ -92,7 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   const project = new Project(controls.zoom.getMax(), contentListener);
 
+  /* 
+    Mouse behavior controls (user can draw with one click or dragging the 
+    cursor over the canvas)
+    Mouse being up or down is tracked, and moving
+    the mouse out of the canvas is tracked aswell
+  */
+
   let mouseIsDown = false;
+
   project.wrapper.addEventListener('mousedown', event => {
     event.preventDefault();
     mouseIsDown = true;
@@ -105,6 +119,8 @@ document.addEventListener('DOMContentLoaded', () => {
       mouseIsDown = false;
     }
   });
+
+  // Add listeners to some functionalities
 
   const canvas = document.querySelector('#canvas');
   const startButton = document.querySelector('#start-button');

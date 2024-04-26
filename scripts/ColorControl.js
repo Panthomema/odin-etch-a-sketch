@@ -9,6 +9,8 @@ export class ColorControl extends Control
     this.addUpdateIconColorListeners();
   }
 
+  // Synchronizes inputs so updating one updates the other one
+
   synchronize() {
     const [input1, input2] = this.inputNodes;
 
@@ -23,6 +25,14 @@ export class ColorControl extends Control
     });
   }
 
+  addUpdateIconColorListeners() {
+    this.inputNodes.forEach(input => {
+      input.addEventListener('input', event => {
+        this.updateIconColor(event.currentTarget);
+      });
+    });
+  }
+
   updateIconColor(colorInputNode) {
     const icon = colorInputNode.nextElementSibling;
     const luminance = new Color(colorInputNode.value).getLuminance();
@@ -30,14 +40,6 @@ export class ColorControl extends Control
     icon.style.color = (luminance > 0.5)
       ? 'var(--color-dark)'
       : 'var(--color-light)';
-  }
-
-  addUpdateIconColorListeners() {
-    this.inputNodes.forEach(input => {
-      input.addEventListener('input', event => {
-        this.updateIconColor(event.currentTarget);
-      });
-    });
   }
 
   getValue() {

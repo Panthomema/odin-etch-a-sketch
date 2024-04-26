@@ -14,6 +14,7 @@ export class Project
     this.initContent();
   }
 
+
   initContent() {
     this.content = Array.from(
       { length: this.maxSideLength ** 2 },
@@ -53,6 +54,9 @@ export class Project
   }
 
   resetContent() {
+
+    // Need to save the previous state for consistent behavior
+    
     let gridLinesOn = this.content[0].classList.contains('grid-lines-on');
     const bgColor = this.content[0].style.background;
     

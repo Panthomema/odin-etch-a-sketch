@@ -7,6 +7,8 @@ export class TogglableControl extends Control
     this.synchronize();
   }
 
+  // Synchronizes inputs so updating one updates the other one
+
   synchronize() {
     const [checkbox1, checkbox2] = this.inputNodes;
 

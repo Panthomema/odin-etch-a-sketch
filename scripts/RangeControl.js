@@ -7,6 +7,8 @@ export class RangeControl extends Control
     this.synchronize();
   }
 
+  // Synchronizes inputs so updating one updates the other one
+
   synchronize() {
     const [input1, input2] = this.inputNodes;
 
