@@ -202,7 +202,7 @@ main {
 }
 
 #content-wrapper .row div {
-  display: flex;
+  flex: 1;  
   aspect-ratio: 1/1;
 }
 

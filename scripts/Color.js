@@ -14,7 +14,10 @@ export class Color
     }
 
     if(!codeString) {
-      [this.r, this.g, this.b] = Array.from({ length: 3}, () => Math.floor(Math.random() * 256));
+      [this.r, this.g, this.b] = Array.from(
+        { length: 3}, 
+        () => Math.floor(Math.random() * 256)
+      );
     }
   }
 
@@ -31,6 +34,14 @@ export class Color
 
   getLuminance() {
     return (0.299 * this.r + 0.587 * this.g + 0.114 * this.b) / 255;
+  }
+
+  getLighteningRatio() {
+    return [this.r, this.g, this.b].map(value => (255 - value) / 10);
+  }
+
+  getDarkeningRatio() {
+    return [this.r, this.g, this.b].map(value => value / 10);
   }
 
 }

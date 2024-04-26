@@ -20,6 +20,7 @@ export class Project
       () => {
         const pixel = document.createElement('div');
         pixel.setAttribute('data-painted', '');
+        pixel.style.opacity = 1;
         pixel.addEventListener('mouseover', this.contentListener);
         pixel.addEventListener('mousedown', this.contentListener);
         return pixel;

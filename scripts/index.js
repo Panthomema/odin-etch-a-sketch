@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
       eraser: new TogglableControl('.eraser', 'eraser'),
       randomizer: new TogglableControl('.randomizer', 'color randomizer'),
       colorPicker: new TogglableControl('.color-picker', 'color picker'),
-      lightener: new TogglableControl('.lightener', 'lightener'),
-      darkener: new TogglableControl('.darkener', 'darkener'),
+      opacityAdder: new TogglableControl('.opacity-adder', 'opacity adder'),
+      opacityRemover: new TogglableControl('.opacity-remover', 'opacity remover'),
     },
   }
 
@@ -42,24 +42,35 @@ document.addEventListener('DOMContentLoaded', () => {
       event.currentTarget.dataset.painted = 'true';
       const color = new Color(controls.markerColor.getValue()).formatToRGB();
       event.currentTarget.style.background = color;
+      event.currentTarget.style.opacity = 1;
     },
     eraser: event => {
       if(event.currentTarget.dataset.painted === 'true') {
         event.currentTarget.dataset.painted = '';
         const color = new Color(controls.bgColor.getValue()).formatToRGB();
         event.currentTarget.style.background = color;
+        event.currentTarget.style.opacity = 1;
       }
     },
     randomizer: event => {
       event.currentTarget.dataset.painted = '';
       const color = new Color().formatToRGB();
       event.currentTarget.style.background = color;
-  },
+      event.currentTarget.style.opacity = 1;
+    },
     colorPicker: event => {
       const rgbString = event.currentTarget.style.background;
       if (rgbString) {
         controls.markerColor.setValue(new Color(rgbString).formatToHex());
       }
+    },
+    opacityAdder: event => {
+      const pixel = event.currentTarget;
+      if (pixel.style.opacity < 1) pixel.style.opacity += 0.1;
+    },
+    opacityRemover: event => {
+      const pixel = event.currentTarget;
+      if (pixel.style.opacity > 0) pixel.style.opacity -= 0.1;
     }
   }
 
