@@ -1,5 +1,5 @@
 import { Control } from "./Control.js";
-import { Utils } from "./Utils.js";
+import { Color } from "./Color.js";
 
 export class ColorControl extends Control
 {
@@ -25,8 +25,7 @@ export class ColorControl extends Control
 
   updateIconColor(colorInputNode) {
     const icon = colorInputNode.nextElementSibling;
-    const rgbValue = Utils.hexToRgb(colorInputNode.value)
-    const luminance = Utils.calculateLuminance(rgbValue);
+    const luminance = new Color(colorInputNode.value).getLuminance();
   
     icon.style.color = (luminance > 0.5)
       ? 'var(--color-dark)'
@@ -43,5 +42,12 @@ export class ColorControl extends Control
 
   getValue() {
     return this.inputNodes[0].value;
+  }
+
+  setValue(value) {
+    this.inputNodes.forEach(node => {
+      node.value = value;
+      this.updateIconColor(node);
+    });
   }
 }

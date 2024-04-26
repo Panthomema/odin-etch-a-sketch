@@ -1,4 +1,5 @@
 import { Utils } from "./Utils.js";
+import { Color } from "./Color.js";
 import { Control } from "./Control.js";
 import { TogglableControl } from "./TogglableControl.js";
 import { RangeControl } from "./RangeControl.js";
@@ -39,17 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const markerActions = {
     marker: event => {
       event.currentTarget.dataset.painted = 'true';
-      const color = controls.markerColor.getValue();
+      const color = new Color(controls.markerColor.getValue()).formatToRGB();
       event.currentTarget.style.background = color;
     },
     eraser: event => {
       if(event.currentTarget.dataset.painted === 'true') {
         event.currentTarget.dataset.painted = '';
-        const color = controls.bgColor.getValue();
+        const color = new Color(controls.bgColor.getValue()).formatToRGB();
         event.currentTarget.style.background = color;
       }
     },
-    
+    randomizer: event => {
+      event.currentTarget.dataset.painted = '';
+      const color = new Color().formatToRGB();
+      event.currentTarget.style.background = color;
+  },
+    colorPicker: event => {
+      const rgbString = event.currentTarget.style.background;
+      if (rgbString) {
+        controls.markerColor.setValue(new Color(rgbString).formatToHex());
+      }
+    }
   }
 
   for (const option in markerActions) {
@@ -108,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   controls.bgColor.addListener('input', event => {
-    project.setContentBackground(event.target.value);
+    const color = new Color(event.target.value).formatToRGB();
+    project.setContentBackground(color);
   });
 });
