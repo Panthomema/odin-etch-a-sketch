@@ -65,12 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     opacityAdder: event => {
-      const pixel = event.currentTarget;
-      if (pixel.style.opacity < 1) pixel.style.opacity += 0.1;
+      const actualOpacity = Number(event.currentTarget.style.opacity);
+      if (actualOpacity < 1) {
+        event.currentTarget.style.opacity = actualOpacity + 0.1;
+      }
     },
     opacityRemover: event => {
-      const pixel = event.currentTarget;
-      if (pixel.style.opacity > 0) pixel.style.opacity -= 0.1;
+      const actualOpacity = Number(event.currentTarget.style.opacity);
+      if (actualOpacity > 0) {
+        event.currentTarget.style.opacity = actualOpacity - 0.1;
+      }
     }
   }
 
