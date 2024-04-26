@@ -95,7 +95,6 @@ button {
       0 0 1.2vmin #fffccc;
   --text-color-button-active: rgb(255, 255, 255);
   
-  --color-button-icon: rgb(34, 34, 34);
   --fs-icon: 3vmin;
 
   --border-slider-thumb: 0.45vmin solid rgb(102, 102, 102);

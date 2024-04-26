@@ -1,265 +1,113 @@
-import { Project } from "./project.js";
-
-let project;
+import { Utils } from "./Utils.js";
+import { Control } from "./Control.js";
+import { TogglableControl } from "./TogglableControl.js";
+import { RangeControl } from "./RangeControl.js";
+import { ColorControl } from "./ColorControl.js";
+import { Project } from "./Project.js";
 
 document.addEventListener('DOMContentLoaded', () => {
 
+ 
+  // Create controls tracking object
 
-  // Update icon color to match background
+  const controls = {
+    clear: new Control('.clear', 'clear'),
+    toggleGrid: new TogglableControl('.grid-toggler', 'toggle grid lines'),
+    zoom: new RangeControl('.zoom', 'zoom'),
+    bgColor: new ColorControl('.bg-color', 'background color'),
+    markerColor: new ColorControl('.marker-color', 'marker color'),
+    markerOptions: {
+      marker: new TogglableControl('.marker', 'marker'),
+      eraser: new TogglableControl('.eraser', 'eraser'),
+      randomizer: new TogglableControl('.randomizer', 'color randomizer'),
+      colorPicker: new TogglableControl('.color-picker', 'color picker'),
+      lightener: new TogglableControl('.lightener', 'lightener'),
+      darkener: new TogglableControl('.darkener', 'darkener'),
+    },
+  }
 
-  document.querySelectorAll('[type=color]').forEach(input => {
-    input.addEventListener('input', event => {
-      updateIconColor(event.currentTarget);
+  Object.values(controls.markerOptions)
+    .reduce((nodes, control) => nodes.concat(control.inputNodes), [])
+    .forEach((node, _, allNodes) => {
+      node.addEventListener('click', event => {
+        allNodes
+          .filter(node => node !== event.currentTarget)
+          .forEach(otherNode => { otherNode.checked = false });
+      });
     });
-  });
-
-  // Make marker controls behave as radio buttons
-
-  const markerControls = document.querySelectorAll('[name="marker-options"]');
-
-  markerControls.forEach(input => {
-    input.addEventListener('click', event => {
-      [...markerControls]
-        .filter(input => input !== event.currentTarget)
-        .forEach(other => {
-          other.checked = false;
-        });
-    });
-  });
-
-  // Controls array
-
-  const controls = [
-    {
-      selector: '.clear',
-      tooltipMsg: 'clear canvas',
-    },
-    {
-      selector: '.grid-toggler',
-      tooltipMsg: 'toggle grid lines',
-    },
-    {
-      selector: '.zoom',
-      tooltipMsg: 'zoom',
-    },
-    {
-      selector: '.marker-color',
-      tooltipMsg: 'marker color',
-    },
-    {
-      selector: '.bg-color',
-      tooltipMsg: 'background color',
-    },
-    {
-      selector: '.marker',
-      tooltipMsg: 'marker',
-    },
-    {
-      selector: '.eraser',
-      tooltipMsg: 'eraser',
-    },
-    {
-      selector: '.randomizer',
-      tooltipMsg: 'color randomizer',
-    },
-    {
-      selector: '.color-picker',
-      tooltipMsg: 'color picker',
-    },
-    {
-      selector: '.lightener',
-      tooltipMsg: 'lightener',
-    },
-    {
-      selector: '.darkener',
-      tooltipMsg: 'darkener',
-    },
-  ];
-
-  for (const control of controls) {
-    control.inputNodes = document.querySelectorAll(control.selector);
-  }
-
-  // Sync each control pair so they are consistent upon window resizing
-
-  for (const control of controls) {
-    const inputs = [...control.inputNodes];
-
-    if (inputs.every(node => node.nodeName === 'BUTTON')) continue;
-
-    if (inputs.every(node => node.type === 'checkbox')) syncCheckboxes(inputs);
-
-    if (inputs.every(node => node.type === 'color')) syncColorInputs(inputs);
-
-    if (inputs.every(node => node.type === 'range')) syncRangeInputs(inputs);
-  }
-
-  for (const control of controls) {
-    control.parentNodes = [...control.inputNodes].map(node => node.parentNode);
-  }
-
-  // Add tooltips
-
-  for (const control of controls) {
-    control.parentNodes.forEach(node => addTooltip(node, control.tooltipMsg));
-  }
-
-  // Add start project functionality
-
-  const startButton = document.querySelector('#start-button');
-  startButton.addEventListener('click', startProject);
-
-  // Add restart project functionality
-
-  const clearButton = controls.find(control => control.selector === '.clear');
-  clearButton.inputNodes.forEach(node => {
-    node.addEventListener('click', restartProject);
-  });
-
-  // Add resize content functionality
   
-  const slider = controls.find(control => control.selector === '.zoom');
-  slider.inputNodes.forEach(node => {
-    node.addEventListener('input', resizeContent);
-  });
-
-  // Add toggle grid functionality
-
-  const gridToggler = controls
-    .find(control => control.selector === '.grid-toggler');
-  gridToggler.inputNodes.forEach(node => {
-    node.addEventListener('change', toggleGrid);
-  });
-
-  // Add background color change functionality
-
-  const bgColor = controls.find(control => control.selector === '.bg-color');
-  bgColor.inputNodes.forEach(node => {
-    node.addEventListener('input', updateBgColor);
-  });
-
-});
-
-
-function calculateLuminance(color) {
-  const { r, g, b } = color;
-  return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-}
-
-export function hexToRgb(hex) {
-  hex = hex.replace(/^#/, '');
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-
-  return { r, g, b };
-}
-
-function updateIconColor(colorInput) {
-  const icon = colorInput.nextElementSibling;
-  const luminance = calculateLuminance(hexToRgb(colorInput.value));
-
-  icon.style.color = (luminance > 0.5)
-    ? 'var(--color-button-icon)'
-    : 'var(--color-light)';
-}
-
-function syncCheckboxes(pair) {
-  const [checkbox1, checkbox2] = pair;
-
-  checkbox1.addEventListener('change', () => {
-    checkbox2.checked = checkbox1.checked;
-  });
-
-  checkbox2.addEventListener('change', () => {
-    checkbox1.checked = checkbox2.checked;
-  });
-}
-
-function syncColorInputs(pair) {
-  const [input1, input2] = pair;
-
-  input1.addEventListener('change', () => {
-    input2.value = input1.value;
-    updateIconColor(input2);
-  });
-
-  input2.addEventListener('change', () => {
-    input1.value = input2.value;
-    updateIconColor(input1);
-  });
-}
-
-function syncRangeInputs(pair) {
-  const [input1, input2] = pair;
-
-  input1.addEventListener('input', () => {
-    input2.value = input1.value;
-  });
-
-  input2.addEventListener('input', () => {
-    input1.value = input2.value;
-  });
-}
-
-function addTooltip(elem, text) {
-  elem.classList.add('tooltip-container');
-
-  const tooltipText = document.createElement('div');
-  tooltipText.classList.add('tooltip-text');
-  tooltipText.textContent = text;
-
-  elem.appendChild(tooltipText);
-}
-
-
-function startProject() {
-  project = new Project(
-    document.querySelector('[type=range]').max,
-    document.querySelector('.grid-toggler').checked,
-    document.querySelector('.bg-color').value
-  );
-  formatContent();
-}
-
-function formatContent() {
-  const content = document.querySelector('#canvas').firstElementChild;
-  content.classList.add('hidden');
-  content.addEventListener('transitionend', renderContent);
-}
-
-function renderContent(event) {
-  removeAfterTransition(event, 'opacity');
-  const content = project.render(document.querySelector('[type=range]').value);
-  content.classList.add('hidden');
-  document.querySelector('#canvas').appendChild(content);
-
-  /* Push to the style change to the event loop end, so browser has time to
-  apply the css styles (otherwise transition wouldn't work) */
-
-  setTimeout(() => { content.classList.remove('hidden') }, 0);
-}
-
-function removeAfterTransition(event, propertyName) {
-  if (event.propertyName === propertyName) {
-    event.currentTarget.remove();
-    event.currentTarget.removeEventListener('transitionend', renderContent);
+  const markerActions = {
+    marker: event => {
+      event.currentTarget.dataset.painted = 'true';
+      const color = controls.markerColor.getValue();
+      event.currentTarget.style.background = color;
+    },
+    eraser: event => {
+      if(event.currentTarget.dataset.painted === 'true') {
+        event.currentTarget.dataset.painted = '';
+        const color = controls.bgColor.getValue();
+        event.currentTarget.style.background = color;
+      }
+    },
+    
   }
-}
 
-function restartProject() {
-  if (typeof project !== 'undefined') startProject();
-}
+  for (const option in markerActions) {
+    controls.markerOptions[option].action = markerActions[option];
+  }
+  
+  const contentListener = event => {
+    if (event.type === 'mouseover' && !mouseIsDown) return;
+    const checkedOption = Object.values(controls.markerOptions)
+      .find(control => control.getCheckedState());
+    
+    if (checkedOption) checkedOption.action(event);
+  };
+  
+  const project = new Project(controls.zoom.getMax(), contentListener);
 
-function resizeContent() {
-  if (typeof project !== 'undefined') formatContent();
-}
+  let mouseIsDown = false;
+  project.wrapper.addEventListener('mousedown', event => {
+    event.preventDefault();
+    mouseIsDown = true;
+  });
+  project.wrapper.addEventListener('mouseup', () => { 
+    mouseIsDown = false 
+  });
+  project.wrapper.addEventListener('mouseout', event => {
+    if (!project.wrapper.contains(event.relatedTarget)) {
+      mouseIsDown = false;
+    }
+  });
 
-function toggleGrid() {
-  if (typeof project !== 'undefined') project.toggleGridLines();
-}
+  const canvas = document.querySelector('#canvas');
+  const startButton = document.querySelector('#start-button');
 
-function updateBgColor(event) {
-  if (typeof project !== 'undefined') project.updateBgColor(event.target.value);
-}
+  const showProject = () => {
+    const content = project.render(controls.zoom.getValue());
+    Utils.changeContentWithTransition(content, canvas);
+  };
 
+  startButton.addEventListener('click', showProject);
+
+  controls.clear.addListener('click', () => {
+    if (canvas.firstElementChild === project.wrapper) {
+
+      project.resetContent();
+      showProject();
+    }
+  });
+
+  controls.toggleGrid.addListener('change', () => {
+    project.wrapper.classList.toggle('grid-lines-on');
+    project.toggleContentClass('grid-lines-on');
+  });
+
+  controls.zoom.addListener('input', () => {
+    if (canvas.firstElementChild === project.wrapper) showProject();
+  });
+
+  controls.bgColor.addListener('input', event => {
+    project.setContentBackground(event.target.value);
+  });
+});

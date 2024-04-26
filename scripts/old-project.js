@@ -19,6 +19,7 @@ export class Project
 
   }
 
+  /*
   initContent() {
     return Array.from(
       { length: this.maxSide ** 2 },
@@ -31,6 +32,7 @@ export class Project
       }
     );
   }
+  */
 
   initMarkerFunctions() {
     return {
@@ -69,6 +71,7 @@ export class Project
     });
   }
 
+  /*
   formatContent(sideLength) {
     const cutRatio = (this.maxSide - sideLength) / 2;
     let rows = this.splitInRows(this.content, this.maxSide);
@@ -103,7 +106,9 @@ export class Project
 
     return this.wrapper;
   }
+  */
 
+  /*
   toggleGridLines() {
     this.wrapper.classList.toggle('grid-lines-on');
     this.content.forEach(pixel => {
@@ -117,12 +122,15 @@ export class Project
     }); 
   }
 
+  */
+
   callMarkerFunction(event) {
     if (event.type === 'mouseover' && !this.mouseIsDown) return;
     const markerOptions = document.querySelectorAll('[name=marker-options]');
     const checkedOption = ([...markerOptions].find(node => node.checked));
     if (checkedOption) this.markerFunctions[checkedOption.classList[0]](event);
   }
+  
 
   rgbToHex(r, g, b) {
     // Convert each color component to a hexadecimal string and pad with zeros if necessary
